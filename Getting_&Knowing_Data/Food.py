@@ -38,25 +38,9 @@ def get_nth_col(df,n):
 def nth_obs_ofnth_row(df,col_name,obs_name):
   return df.select(col_name).head(obs_num)[obs_num-1][0]  
 
-def analyze_data(df):
-  """Analyzes the food data by calling other functions."""
-  num_observations = count_observations(df)
-  num_columns = count_columns(df)
-  print("Number of observations:", num_observations)
-  print("Number of columns:", num_columns)
-  print_column_names(df)
-  print_data_types(df)
 
 
 
 
-def main():
-  """Loads data, performs analysis, and stops the SparkSession."""
-  spark = create_spark_session()
-  filepath = "path/to/en.openfoodfacts.org.products.tsv"  # Replace with your path
-  df = load_data(spark, filepath)
-  analyze_data(df)
-  spark.stop()
 
-if __name__ == "__main__":
-  main()
+
