@@ -1,0 +1,71 @@
+import chipotle as chip
+import pandas as pd
+import numpy as np
+from pyspark.sql import SparkSession
+import pyspark.sql.functions as F
+import pyspark.sql.types as T 
+
+
+
+
+spark = SparkSession.builder.appName("Shubham").getOrCreate()
+url = "https://raw.githubusercontent.com/justmarkham/DAT8/master/data/chipotle.tsv"
+df= chip.load_data(spark, url)
+
+
+def test_find_most_ordered_item():
+  assert chip.find_most_ordered_item(df) == 'Chicken Bowl'
+  print("test_find_most_ordered_item : Passed")
+
+
+
+
+def test_find_most_ordered_choice():
+  assert chip.find_most_ordered_choice(df) == 761
+  print("test_find_most_ordered_item_quantity : Passed")
+
+
+def test_calculate_average_revenue_per_order():
+  assert chip.calculate_average_revenue_per_order(df)== 21.394231188658654
+  print("test_calculate_average_revenue_per_order : passed")
+
+
+def test_convert_item_to_float():
+  df_convert = chip.convert_item_to_float()
+  assert df_convert.dtypes[4][1] == 'float'
+  print("test_convert_item_to_float : Passed")
+
+
+def test_get_revenue():
+  df_converted = chip.convert_to_float(df)
+  assert round(chip.get_revenue(df_converted), 2) == 39237.02
+  print("test_get_revenue : Passed")  
+
+def test_get_unique_items():
+  assert chip.count_unique_items(df) == 50
+  print("test_count_unique_items : Passed")
+
+def test_count_orders():
+  assert chip.count_orders(df) == 1834
+  print("test_count_orders : Passed")
+
+def test_get_total_orders():
+  assert chip.get_total_orders(df) == 1834
+  print("test_get_total_orders : Passed")
+
+
+
+
+
+##
+
+test_find_most_ordered_item()
+test_find_most_ordered_choice()
+test_calculate_average_revenue_per_order()
+test_convert_item_to_float()
+test_get_revenue()
+test_get_unique_items()
+test_get_total_orders()
+test_count_orders()
+
+
