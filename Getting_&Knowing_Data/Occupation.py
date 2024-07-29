@@ -47,17 +47,4 @@ def analyze_user_data(user_data_df):
   print("Age range:", age_range)
 
 
-def main():
-  """
-  Main function that loads user data, analyzes it, and prints results.
-  """
-  spark = SparkSession.builder.appName('SparkBy').getOrCreate()
 
-  user_data_df = load_user_data(spark, url="https://raw.githubusercontent.com/justmarkham/DAT8/master/data/u.user", sep='|', index_col='user_id')
-  analyze_user_data(user_data_df)
-
-  spark.stop()
-
-
-if __name__ == "__main__":
-  main()

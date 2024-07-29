@@ -10,8 +10,14 @@ from pyspark.sql.functions import col, count, countDistinct, mean, min, max
 from pyspark.sql import SparkSession
 spark = SparkSession.builder.appName('SparkBy').getOrCreate()
 
+
+
 url = "https://raw.githubusercontent.com/justmarkham/DAT8/master/data/chipotle.tsv"
-df= chip.load_data(spark, url)
+data = pd.read_csv(url, sep="\t")
+data.to_csv("chip_data.csv", index=False)
+df = spark.read.csv("chip_data.csv", header=True)
+df.show()
+
 
 
 total_rows = chip.get_data_shape(df)
